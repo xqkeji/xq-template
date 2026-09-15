@@ -9,10 +9,41 @@
   <xq-include file="/partials/header.html"></xq-include>
 
   <main class="container py-5">
-    <h1>关于本原型</h1>
-    <p class="lead">这是使用 xq-template 生成的「关于」页面示例。</p>
-    <p>你可以在 <code>pages/</code> 目录下继续添加更多页面，并在 <code>vite.config.mjs</code> 的 <code>rollupOptions.input</code> 增加一条入口，vite-plugin-xq-multi-input 会自动把它们加入构建。</p>
-    <a class="btn btn-outline-secondary" href="/index.html">&larr; 返回首页</a>
+    <div class="p-4 mb-4 bg-light rounded-3">
+      <h1 class="fw-bold">关于本原型</h1>
+      <p class="lead">这是使用 xq-template 生成的「关于」页面示例，全程使用 Bootstrap 5 排版。</p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-lg-8">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h5 class="card-title">项目能力</h5>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                多页面构建 <span class="badge bg-primary rounded-pill">xq-multi-input</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                片段复用 <span class="badge bg-primary rounded-pill">xq-include</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                依赖自动拷贝 <span class="badge bg-primary rounded-pill">xq-cp-dep</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="alert alert-info h-100 mb-0">
+          <h6 class="alert-heading">提示</h6>
+          <p class="mb-0">在 <code>pages/</code> 下新增页面后，记得在 <code>vite.config.mjs</code> 的 <code>input</code> 注册入口。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <a class="btn btn-outline-secondary" href="/index.html">&larr; 返回首页</a>
+    </div>
   </main>
 
   <xq-include file="/partials/footer.html"></xq-include>
