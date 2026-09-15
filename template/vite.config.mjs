@@ -10,6 +10,10 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url))
 export default defineConfig({
   // 相对路径，方便构建产物直接以 file:// 打开 / 导出 PDF
   base: './',
+  // 开发/预览时自动打开浏览器（默认打开首页 /，多页应用可改成具体页面如 '/pages/about/index.html'）
+  server: {
+    open: true,
+  },
   plugins: [
     xqInclude(),
     xqCpDep(),

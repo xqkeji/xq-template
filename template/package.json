@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "vite": "^8.0.0",
-    "vite-plugin-xq-cp-dep": "^1.1.1",
+    "vite-plugin-xq-cp-dep": "^1.1.2",
     "vite-plugin-xq-include": "^1.1.1",
     "vite-plugin-xq-multi-input": "^1.1.0",
     "xq-banner": "^1.0.10",
