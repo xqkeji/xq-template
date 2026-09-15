@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>联系 · {{name}}</title>
+</head>
+<body>
+  <xq-include file="/partials/header.html"></xq-include>
+
+  <main class="container py-5">
+    <h1>联系我们</h1>
+    <p class="lead">这是「联系」页面示例，可直接替换为你的表单或联系方式。</p>
+    <form class="row g-3" onsubmit="event.preventDefault(); alert('提交成功（示例）')">
+      <div class="col-md-6">
+        <label class="form-label">姓名</label>
+        <input type="text" class="form-control" placeholder="请输入姓名" />
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">邮箱</label>
+        <input type="email" class="form-control" placeholder="name@example.com" />
+      </div>
+      <div class="col-12">
+        <label class="form-label">留言</label>
+        <textarea class="form-control" rows="3" placeholder="想说点什么..."></textarea>
+      </div>
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary">提交</button>
+      </div>
+    </form>
+    <div class="mt-4">
+      <a class="btn btn-outline-secondary" href="/index.html">&larr; 返回首页</a>
+    </div>
+  </main>
+
+  <xq-include file="/partials/footer.html"></xq-include>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

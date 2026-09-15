@@ -1,0 +1,17 @@
+{
+  "name": "create-xq-template",
+  "version": "0.1.0",
+  "description": "Scaffold a Vite + xq-plugins HTML prototype project. 基于 Vite 与 xq 插件体系的 HTML 产品原型脚手架。",
+  "type": "module",
+  "bin": {
+    "create-xq-template": "./index.js"
+  },
+  "files": [
+    "index.js",
+    "template"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "SSPL-1.0"
+}

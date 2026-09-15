@@ -1,0 +1,5 @@
+node_modules
+dist
+prototype.pdf
+*.log
+.DS_Store

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{name}}</title>
+</head>
+<body>
+  <xq-include file="/partials/header.html"></xq-include>
+
+  <main class="container py-5">
+    <div class="p-5 mb-4 bg-light rounded-3 xq-hero">
+      <div class="container-fluid py-4">
+        <h1 class="display-5 fw-bold">{{name}}</h1>
+        <p class="lead">基于 Vite + xq 插件体系的 HTML 产品原型模板，开箱即用。</p>
+        <a class="btn btn-primary btn-lg" href="/pages/about/index.html">查看关于页 &rarr;</a>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">多页面</h5>
+            <p class="card-text">vite-plugin-xq-multi-input 自动扫描 <code>pages/</code> 目录并配置入口。</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">片段复用</h5>
+            <p class="card-text">vite-plugin-xq-include 让你用 <code>&lt;xq-include&gt;</code> 复用 header / footer。</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">导出 PDF</h5>
+            <p class="card-text">运行 <code>npm run pdf</code> 把所有页面合并导出为单个 PDF。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-5">
+      <h2>快速体验</h2>
+      <p>在 <code>src/</code> 与 <code>pages/</code> 下编辑 HTML，保存即热更新。公共片段放在 <code>partials/</code>。</p>
+      <button class="btn btn-outline-primary" type="button" onclick="alert('bootstrap 交互正常')">测试 Bootstrap 交互</button>
+    </div>
+  </main>
+
+  <xq-include file="/partials/footer.html"></xq-include>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

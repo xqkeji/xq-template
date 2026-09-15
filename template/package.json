@@ -1,0 +1,31 @@
+{
+  "name": "{{name}}",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "基于 Vite + xq 插件的 HTML 产品原型",
+  "author": "xqkeji.cn",
+  "license": "SSPL-1.0",
+  "homepage": "https://xqkeji.cn/",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "banner": "xq-banner dist",
+    "build:full": "vite build && xq-banner dist",
+    "preview": "vite preview",
+    "pdf": "node export-pdf.mjs"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "xq-util": "^1.0.4"
+  },
+  "devDependencies": {
+    "vite": "^8.0.0",
+    "vite-plugin-xq-cp-dep": "^1.1.1",
+    "vite-plugin-xq-include": "^1.1.1",
+    "vite-plugin-xq-multi-input": "^1.1.0",
+    "xq-banner": "^1.0.10",
+    "playwright": "^1.49.0",
+    "pdf-lib": "^1.17.1"
+  }
+}

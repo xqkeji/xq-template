@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>关于 · {{name}}</title>
+</head>
+<body>
+  <xq-include file="/partials/header.html"></xq-include>
+
+  <main class="container py-5">
+    <h1>关于本原型</h1>
+    <p class="lead">这是使用 xq-template 生成的「关于」页面示例。</p>
+    <p>你可以在 <code>pages/</code> 目录下继续添加更多页面，并在 <code>vite.config.mjs</code> 的 <code>rollupOptions.input</code> 增加一条入口，vite-plugin-xq-multi-input 会自动把它们加入构建。</p>
+    <a class="btn btn-outline-secondary" href="/index.html">&larr; 返回首页</a>
+  </main>
+
+  <xq-include file="/partials/footer.html"></xq-include>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
