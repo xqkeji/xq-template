@@ -48,6 +48,7 @@
 - 提示与徽章：`<div class="alert alert-info">`、`<span class="badge bg-success rounded-pill">`。
 - 工具类：间距 `mt-4`/`py-5`、文字 `text-muted`/`fw-bold`/`text-center`、弹性 `d-flex align-items-center justify-content-between` 等。
 - 主题强调色变量为 `--xq-accent`（见 `src/style.css`），需要自定义颜色时优先复用它。
+- 想看完整可运行范例，参考 `pages/components/index.html`（组件陈列页，集中展示上述所有组件的写法，新增页面应优先模仿它）。
 
 ## 5. 新增一个页面三步
 1. 在 `pages/<页面名>/index.html` 新建，套用上方骨架并用 Bootstrap 写内容。
