@@ -1,8 +1,16 @@
 {
   "name": "create-xq-template",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Scaffold a Vite + xq-plugins HTML prototype project. 基于 Vite 与 xq 插件体系的 HTML 产品原型脚手架。",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xqkeji/xq-template.git"
+  },
+  "homepage": "https://github.com/xqkeji/xq-template#readme",
+  "bugs": {
+    "url": "https://github.com/xqkeji/xq-template/issues"
+  },
   "bin": {
     "create-xq-template": "./index.js"
   },
