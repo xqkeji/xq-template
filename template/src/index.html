@@ -22,7 +22,7 @@
         <div class="card h-100 shadow-sm">
           <div class="card-body">
             <h5 class="card-title">多页面</h5>
-            <p class="card-text">vite-plugin-xq-multi-input 自动扫描 <code>pages/</code> 目录并配置入口。</p>
+            <p class="card-text">vite-plugin-xq-multi-input 自动扫描 <code>src/pages/</code> 目录并配置入口。</p>
           </div>
         </div>
       </div>
@@ -46,13 +46,13 @@
 
     <div class="mt-5">
       <h2>快速体验</h2>
-      <p>在 <code>src/</code> 与 <code>pages/</code> 下编辑 HTML，保存即热更新。公共片段放在 <code>partials/</code>。</p>
+      <p>在 <code>src/</code> 下编辑 HTML，保存即热更新。公共片段放在 <code>partials/</code>。</p>
       <button class="btn btn-outline-primary" type="button" onclick="alert('bootstrap 交互正常')">测试 Bootstrap 交互</button>
     </div>
   </main>
 
   <xq-include file="/partials/footer.html"></xq-include>
 
-  <script type="module" src="/src/main.js"></script>
+  <script type="module" src="/ts/main.ts"></script>
 </body>
 </html>

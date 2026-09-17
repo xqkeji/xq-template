@@ -1,11 +1,11 @@
-// 把所有构建产物（dist/）下的 HTML 页面合并导出为一个 PDF。
+// 把所有构建产物（html/）下的 HTML 页面合并导出为一个 PDF。
 // 依赖: playwright（首次需 npx playwright install chromium）+ pdf-lib
 import { chromium } from 'playwright'
 import { readdirSync, existsSync, writeFileSync } from 'node:fs'
 import { join, extname } from 'node:path'
 import { PDFDocument } from 'pdf-lib'
 
-const OUT_DIR = 'dist'
+const OUT_DIR = 'html'
 const OUTPUT = 'prototype.pdf'
 
 if (!existsSync(OUT_DIR)) {

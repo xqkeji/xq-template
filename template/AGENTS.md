@@ -5,11 +5,11 @@
 ## 1. 核心规则：用 Bootstrap 5，不要手写布局 CSS
 - 一切布局、间距、排版、颜色、卡片、按钮、表单、表格、提示、徽章等都**优先使用 Bootstrap 5 的 class**。
 - **禁止**用自写 `<style>` 或内联 `style=` 去实现 Bootstrap 已提供的效果（栅格、margin/padding、字体颜色/粗细、圆角、阴影等）。
-- 仅在极少数品牌定制（如主题色）时才写 CSS，且放进 `src/style.css`，用 Bootstrap 变量/工具类扩展，不另起炉灶。
+- 仅在极少数品牌定制（如主题色）时才写 CSS，且放进 `src/css/style.css`，用 Bootstrap 变量/工具类扩展，不另起炉灶。
 - 不要引入 Tailwind / Bulma 等其它 UI 框架，也不要使用 React / Vue 等前端框架——本项目就是原生 HTML + Bootstrap。
 
 ## 2. Bootstrap 已自动注入，不要再引
-- `src/main.js` 已经 `import 'bootstrap/dist/css/bootstrap.min.css'` 和 `import * as bootstrap from 'bootstrap'`，构建时自动注入每个页面。
+- `src/js/main.js` 已经 `import 'bootstrap/html/css/bootstrap.min.css'` 和 `import * as bootstrap from 'bootstrap'`，构建时自动注入每个页面。
 - 因此 **不要在 HTML 里写** `<link ... bootstrap.css>` 或 `<script ... bootstrap.bundle.js>`。
 - 下拉、折叠、模态、标签页等交互组件，直接用 Bootstrap 的 `data-bs-*` 属性即可自动初始化，无需手写 JS。
 
@@ -31,13 +31,13 @@
 
   <xq-include file="/partials/footer.html"></xq-include>
 
-  <script type="module" src="/src/main.js"></script>
+  <script type="module" src="/js/main.js"></script>
 </body>
 </html>
 ```
-- 顶部导航在 `partials/header.html`（Bootstrap navbar，已存在），不要在页面里重复写导航。
-- 页脚在 `partials/footer.html`，不要重复写。
-- 复用公共片段用 `<xq-include file="/partials/xxx.html">`，路径以 `/` 开头时相对项目根目录。
+- 顶部导航在 `src/partials/header.html`（Bootstrap navbar，已存在），不要在页面里重复写导航。
+- 页脚在 `src/partials/footer.html`，不要重复写。
+- 复用公共片段用 `<xq-include file="/partials/xxx.html">`，路径以 `/` 开头时相对源码根目录（src/）。
 
 ## 4. 必须套用的 Bootstrap 写法示例
 - 容器与栅格：`<main class="container py-4">`、`<div class="row g-3"><div class="col-md-6">…</div></div>`、`.container-fluid`。
@@ -47,13 +47,13 @@
 - 表格：`<table class="table table-striped table-hover align-middle">`。
 - 提示与徽章：`<div class="alert alert-info">`、`<span class="badge bg-success rounded-pill">`。
 - 工具类：间距 `mt-4`/`py-5`、文字 `text-muted`/`fw-bold`/`text-center`、弹性 `d-flex align-items-center justify-content-between` 等。
-- 主题强调色变量为 `--xq-accent`（见 `src/style.css`），需要自定义颜色时优先复用它。
-- 想看完整可运行范例，参考 `pages/components/index.html`（组件陈列页，集中展示上述所有组件的写法，新增页面应优先模仿它）。
+- 主题强调色变量为 `--xq-accent`（见 `src/css/style.css`），需要自定义颜色时优先复用它。
+- 想看完整可运行范例，参考 `src/pages/components/index.html`（组件陈列页，集中展示上述所有组件的写法，新增页面应优先模仿它）。
 
 ## 5. 新增一个页面三步
-1. 在 `pages/<页面名>/index.html` 新建，套用上方骨架并用 Bootstrap 写内容。
-2. 在 `vite.config.mjs` 的 `build.rollupOptions.input` 增加一条：`<页面名>: resolve(__dirname, 'pages/<页面名>/index.html')`。
-3. 在 `partials/header.html` 导航加一项：`<li class="nav-item"><a class="nav-link" href="/pages/<页面名>/index.html">菜单名</a></li>`。
+1. 在 `src/pages/<页面名>/index.html` 新建，套用上方骨架并用 Bootstrap 写内容。
+2. 在 `vite.config.mjs` 的 `build.rollupOptions.input` 增加一条：`<页面名>: resolve(__dirname, 'src/src/pages/<页面名>/index.html')`。
+3. 在 `src/partials/header.html` 导航加一项：`<li class="nav-item"><a class="nav-link" href="/src/pages/<页面名>/index.html">菜单名</a></li>`。
 
 ## 6. 禁止事项
 - 禁止写 `<style>` 块做布局；禁止引入其它 CSS / JS 框架。

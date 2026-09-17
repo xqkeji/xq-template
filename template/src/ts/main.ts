@@ -1,10 +1,8 @@
-import 'bootstrap/dist/css/bootstrap.min.css'
-import * as bootstrap from 'bootstrap'
 import * as xqUtil from 'xq-util'
-import './style.css'
+import '../scss/style.scss'
 
 // xq-util 提供 domReady；如当前版本无该导出则降级到原生 DOMContentLoaded
-const ready = (cb) => {
+const ready = (cb: () => void): void => {
   if (typeof xqUtil.domReady === 'function') {
     xqUtil.domReady(cb)
   } else if (document.readyState !== 'loading') {
