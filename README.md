@@ -64,10 +64,10 @@ my-prototype/
 
 ## 新增一个页面
 
-1. 在 `pages/` 下新建子目录，例如 `pages/order/index.html`；
+1. 在 `src/pages/` 下新建子目录，例如 `src/pages/order/index.html`；
 2. 在 `vite.config.mjs` 的 `rollupOptions.input` 增加一条入口：
    ```js
-   order: resolve(__dirname, 'pages/order/index.html'),
+   order: resolve(__dirname, 'src/pages/order/index.html'),
    ```
    `vite-plugin-xq-multi-input` 会自动把它纳入构建；
 3. 页面内用 `<xq-include file="/partials/header.html"></xq-include>` 复用公共片段。

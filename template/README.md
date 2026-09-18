@@ -40,6 +40,7 @@ src/js/main.js                 # 入口脚本（bootstrap / xq-util）
 src/css/style.css
 export-pdf.mjs                 # Playwright 合并导出 PDF
 vite.config.mjs                # 三个 xq 插件接线
+tsconfig.json                  # TypeScript 配置（src 下为 TS 入口）
 ```
 
 > 页面内用 `<xq-include file="/partials/header.html">` 复用公共片段：
