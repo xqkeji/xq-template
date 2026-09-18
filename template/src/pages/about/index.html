@@ -1,12 +1,4 @@
-<!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>关于 · {{name}}</title>
-</head>
-<body>
-  <xq-include file="/partials/header.html"></xq-include>
+<xq-include file="/partials/header.html" title="关于 · {{name}}" docClass=""></xq-include>
 
   <main class="container py-5">
     <div class="p-4 mb-4 bg-light rounded-3">
@@ -46,8 +38,4 @@
     </div>
   </main>
 
-  <xq-include file="/partials/footer.html"></xq-include>
-
-  <script type="module" src="/ts/main.ts"></script>
-</body>
-</html>
+<xq-include file="/partials/footer.html"></xq-include>

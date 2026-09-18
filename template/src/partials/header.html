@@ -1,42 +1,49 @@
-<!-- 第三方依赖：由 vite-plugin-xq-cp-dep 拷贝到 public 后引用。
-     内联脚本按当前页面相对站点根（public 所在目录）的深度动态注入相对路径，
-     兼容 http(s) 与 file://、任意嵌套层级（如 pages/about/ 自动用 ../../bootstrap/...）。
-     让插件产物被真正使用且兼容 file:// 直接打开 / 导出 PDF。 -->
-<script>
-  (function () {
-    // 以输出目录 html/ 为锚点，计算从当前页目录回到站点根需要的 '../' 层数
-    var path = location.pathname;
-    var idx = path.lastIndexOf('/html/');
-    var rel = (idx >= 0) ? path.slice(idx + 6) : path; // html/ 之后的相对路径（含前导 /）
-    var segs = rel.split('/').filter(Boolean);
-    segs.pop(); // 去掉当前文件名
-    var depth = segs.map(function () { return '..'; }).join('/') + (segs.length ? '/' : '');
-    var head = document.head;
-    ['bootstrap/dist/css/bootstrap.min.css', 'bootstrap-icons/font/bootstrap-icons.css'].forEach(function (u) {
-      var l = document.createElement('link');
-      l.rel = 'stylesheet';
-      l.href = depth + u;
-      head.appendChild(l);
-    });
-    var s = document.createElement('script');
-    s.src = depth + 'bootstrap/dist/js/bootstrap.bundle.min.js';
-    head.appendChild(s);
-  })();
-</script>
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container">
-    <a class="navbar-brand" href="/index.html">{{name}}</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navmenu">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="/index.html">首页</a></li>
-        <li class="nav-item"><a class="nav-link" href="/pages/about/index.html">关于</a></li>
-        <li class="nav-item"><a class="nav-link" href="/pages/components/index.html">组件</a></li>
-        <li class="nav-item"><a class="nav-link" href="/pages/contact/index.html">联系</a></li>
-      </ul>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><?=$title?></title>
+  <!-- 第三方依赖：由 vite-plugin-xq-cp-dep 拷贝到 public 后引用。
+       内联脚本按当前页面相对站点根（public 所在目录）的深度动态注入相对路径，
+       兼容 http(s) 与 file://、任意嵌套层级（如 pages/about/ 自动用 ../../bootstrap/...）。
+       让插件产物被真正使用且兼容 file:// 直接打开 / 导出 PDF。 -->
+  <script>
+    (function () {
+      // 以输出目录 html/ 为锚点，计算从当前页目录回到站点根需要的 '../' 层数
+      var path = location.pathname;
+      var idx = path.lastIndexOf('/html/');
+      var rel = (idx >= 0) ? path.slice(idx + 6) : path; // html/ 之后的相对路径（含前导 /）
+      var segs = rel.split('/').filter(Boolean);
+      segs.pop(); // 去掉当前文件名
+      var depth = segs.map(function () { return '..'; }).join('/') + (segs.length ? '/' : '');
+      var head = document.head;
+      ['bootstrap/dist/css/bootstrap.min.css', 'bootstrap-icons/font/bootstrap-icons.css'].forEach(function (u) {
+        var l = document.createElement('link');
+        l.rel = 'stylesheet';
+        l.href = depth + u;
+        head.appendChild(l);
+      });
+      var s = document.createElement('script');
+      s.src = depth + 'bootstrap/dist/js/bootstrap.bundle.min.js';
+      head.appendChild(s);
+    })();
+  </script>
+</head>
+<body class="<?=$docClass?>">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/index.html">{{name}}</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navmenu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="/index.html">首页</a></li>
+          <li class="nav-item"><a class="nav-link" href="/pages/about/index.html">关于</a></li>
+          <li class="nav-item"><a class="nav-link" href="/pages/components/index.html">组件</a></li>
+          <li class="nav-item"><a class="nav-link" href="/pages/contact/index.html">联系</a></li>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
