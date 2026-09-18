@@ -47,23 +47,27 @@ npm run pdf        # 合并 html/ 下所有页面导出为 prototype.pdf
 
 ```
 my-prototype/
-├─ src/                       # 源码根（Vite root = 'src'）
-│  ├─ index.html              # 首页
+├─ src/                          # 源码根（Vite root = 'src'）
+│  ├─ index.html                 # 首页
 │  ├─ pages/
-│  │  ├─ about/index.html     # 关于页
-│  │  ├─ components/index.html  # 组件样板间
-│  │  └─ contact/index.html   # 联系页（新增页面加子目录即可）
+│  │  ├─ about/index.html        # 关于页
+│  │  ├─ components/index.html   # 组件样板间（Bootstrap 组件范例）
+│  │  └─ contact/index.html      # 联系页（新增页面加子目录即可）
 │  ├─ partials/
-│  │  ├─ header.html          # 公共头部（导航）
-│  │  └─ footer.html          # 公共底部
+│  │  ├─ header.html             # 公共头部（导航）
+│  │  └─ footer.html             # 公共底部
 │  ├─ ts/
-│  │  └─ main.ts              # 入口脚本（TypeScript，引入 bootstrap / xq-util）
+│  │  └─ main.ts                 # 入口脚本（TypeScript：引入 bootstrap / xq-util）
 │  ├─ scss/
-│  │  └─ style.scss           # 样式（Sass / SCSS）
-│  └─ vite-env.d.ts
-├─ tsconfig.json              # TypeScript 配置
-├─ export-pdf.mjs             # Playwright 合并导出 PDF
-├─ vite.config.mjs            # 三个 xq 插件接线
+│  │  └─ style.scss              # 样式（Sass / SCSS）
+│  └─ vite-env.d.ts             # Vite 类型声明
+├─ .github/
+│  └─ copilot-instructions.md   # AI 助手（GitHub Copilot）开发约定
+├─ AGENTS.md                     # AI 助手（Agent / Claude）开发约定
+├─ CLAUDE.md                     # AI 助手（Claude Code）开发约定
+├─ tsconfig.json                 # TypeScript 配置
+├─ export-pdf.mjs                # Playwright 合并导出 PDF
+├─ vite.config.mjs               # 三个 xq 插件接线
 └─ package.json
 ```
 
