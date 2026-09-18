@@ -34,8 +34,8 @@ npm create xq-template my-prototype
 cd my-prototype
 npm install
 npm run dev        # 启动开发服务器，编辑 src/ 与 pages/ 下的 HTML
-npm run build      # 构建所有 HTML 页面到 dist/
-npm run pdf        # 合并 dist/ 下所有页面导出为 prototype.pdf
+npm run build      # 构建所有 HTML 页面到 html/
+npm run pdf        # 合并 html/ 下所有页面导出为 prototype.pdf
 ```
 
 > 首次使用 `npm run pdf` 前需安装一次浏览器内核：
@@ -47,18 +47,23 @@ npm run pdf        # 合并 dist/ 下所有页面导出为 prototype.pdf
 
 ```
 my-prototype/
-├─ index.html              # 首页
-├─ pages/
-│  ├─ about/index.html     # 关于页
-│  └─ contact/index.html   # 联系页（新增页面直接加子目录即可）
-├─ partials/
-│  ├─ header.html          # 公共头部（导航）
-│  └─ footer.html          # 公共底部
-├─ src/
-│  ├─ main.js              # 入口脚本（引入 bootstrap / xq-util）
-│  └─ style.css
-├─ export-pdf.mjs          # Playwright 合并导出 PDF
-├─ vite.config.mjs         # 三个 xq 插件接线
+├─ src/                       # 源码根（Vite root = 'src'）
+│  ├─ index.html              # 首页
+│  ├─ pages/
+│  │  ├─ about/index.html     # 关于页
+│  │  ├─ components/index.html  # 组件样板间
+│  │  └─ contact/index.html   # 联系页（新增页面加子目录即可）
+│  ├─ partials/
+│  │  ├─ header.html          # 公共头部（导航）
+│  │  └─ footer.html          # 公共底部
+│  ├─ ts/
+│  │  └─ main.ts              # 入口脚本（TypeScript，引入 bootstrap / xq-util）
+│  ├─ scss/
+│  │  └─ style.scss           # 样式（Sass / SCSS）
+│  └─ vite-env.d.ts
+├─ tsconfig.json              # TypeScript 配置
+├─ export-pdf.mjs             # Playwright 合并导出 PDF
+├─ vite.config.mjs            # 三个 xq 插件接线
 └─ package.json
 ```
 
