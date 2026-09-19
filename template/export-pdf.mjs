@@ -2,10 +2,11 @@
 // 依赖: playwright（首次需 npx playwright install chromium）+ pdf-lib
 import { chromium } from 'playwright'
 import { readdirSync, existsSync, writeFileSync } from 'node:fs'
-import { join, extname } from 'node:path'
+import { join, extname, resolve } from 'node:path'
+import { pathToFileURL } from 'node:url'
 import { PDFDocument } from 'pdf-lib'
 
-const OUT_DIR = 'html'
+const OUT_DIR = resolve('html')
 const OUTPUT = 'prototype.pdf'
 
 if (!existsSync(OUT_DIR)) {
@@ -34,13 +35,17 @@ if (htmlFiles.length === 0) {
 
 console.log(`发现 ${htmlFiles.length} 个页面，开始渲染 PDF ...`)
 
-const browser = await chromium.launch()
+const browser = await chromium.launch().catch((err) => {
+  console.error(`✗ 无法启动 Chromium：${err.message}`)
+  console.error('  请先安装浏览器内核: npx playwright install chromium')
+  process.exit(1)
+})
 const merged = await PDFDocument.create()
 
 for (const file of htmlFiles) {
   const rel = file.slice(OUT_DIR.length + 1)
   const page = await browser.newPage()
-  await page.goto('file://' + file, { waitUntil: 'load' })
+  await page.goto(pathToFileURL(file).href, { waitUntil: 'load' })
   // 等待字体/异步资源就绪，避免 PDF 中文/图标缺失
   await page
     .evaluate(() => (document.fonts ? document.fonts.ready : true))
