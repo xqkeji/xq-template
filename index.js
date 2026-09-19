@@ -13,6 +13,11 @@ const BINARY_EXTS = new Set([
   '.woff', '.woff2', '.ttf', '.eot', '.svg', '.pdf',
 ])
 
+// 模板目录里若残留本地构建产物 / lockfile（未清理的工作区），不应拷进新生成的工程
+const SKIP_TOP_LEVEL = new Set([
+  'node_modules', '.git', 'html', 'prototype.pdf', 'package-lock.json',
+])
+
 const HELP = `xq-template — 基于 Vite + xq 插件的 HTML 产品原型脚手架
 
 用法:
@@ -29,7 +34,6 @@ const HELP = `xq-template — 基于 Vite + xq 插件的 HTML 产品原型脚手
   cd my-prototype && npm install && npm run dev
 
 生成的工程包含:
-  · vite-plugin-xq-cp-dep   依赖包复制到 public
   · vite-plugin-xq-include  HTML 片段复用
   · vite-plugin-xq-multi-input  多页面自动入口
   · xq-banner               构建产物版权信息生成
@@ -81,7 +85,7 @@ async function copyTemplate(src, dest, ph) {
   await fs.mkdir(dest, { recursive: true })
   const entries = await fs.readdir(src, { withFileTypes: true })
   for (const e of entries) {
-    if (e.name === 'node_modules' || e.name === '.git') continue
+    if (src === TEMPLATE_DIR && SKIP_TOP_LEVEL.has(e.name)) continue
     const s = path.join(src, e.name)
     const d = path.join(dest, e.name)
     if (e.isDirectory()) {
