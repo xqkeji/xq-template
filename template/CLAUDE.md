@@ -8,15 +8,16 @@
 - 仅在极少数品牌定制（如主题色）时才写样式，且放进 `src/scss/style.scss`（SCSS），用 Bootstrap 变量/工具类扩展，不另起炉灶。
 - 不要引入 Tailwind / Bulma 等其它 UI 框架，也不要使用 React / Vue 等前端框架——本项目就是原生 HTML + Bootstrap。
 
-## 2. 技术栈：TypeScript + SCSS，Bootstrap 经 public 自动注入
+## 2. 技术栈：TypeScript + SCSS，Bootstrap 由 main.ts 统一引入
 - 源码入口是 `src/ts/main.ts`（**TypeScript，不是 .js**）。页面通过 `<script type="module" src="/ts/main.ts">` 引入。它内部 `import '../scss/style.scss'` 引入样式、`import 'xq-util'` 引入工具库。
 - 样式写在 `src/scss/style.scss`（**SCSS，不是 .css**）。
-- Bootstrap 与 bootstrap-icons **不通过 JS import**：由 `vite-plugin-xq-cp-dep` 把依赖拷贝到 `public/`，再经 `src/partials/header.html` 顶部的**内联脚本**按相对路径动态注入 `<link>`/`<script>`（兼容 http(s) 与 file://、任意嵌套层级）。因此 **不要在 HTML 里手写 `<link ... bootstrap>` 或 `<script ... bootstrap>`**，也**不要**在 `main.ts` 里 `import` bootstrap。
-- 下拉、折叠、模态、标签页等交互组件，直接用 Bootstrap 的 `data-bs-*` 属性即可自动初始化，无需手写 JS。
+- Bootstrap 与 bootstrap-icons 的 CSS/JS **只在 `src/ts/main.ts` 里 `import`**（`bootstrap/dist/css/bootstrap.min.css`、`bootstrap-icons/font/bootstrap-icons.css`、`bootstrap`），由 Vite 打包并按 `base: './'` 自动为每个页面注入相对路径的 `<link>` / `<script>`，兼容 http(s) 与 file://、任意嵌套层级。因此**不要在页面或 `header.html` 里手写 `<link ... bootstrap>` / `<script ... bootstrap>`**，也不要在其它文件里重复 import。
+- `vite.config.mjs` 里的 `stripCrossorigin` 插件是 file:// 下样式生效的前提（带 `crossorigin` 的请求在 `file://` 会被按 CORS 拦截），**不要删除**。
+- 下拉、折叠、模态、标签页等交互组件，直接用 Bootstrap 的 `data-bs-*` 属性即可自动初始化，无需手写 JS。注意：`type="module"` 脚本在 `file://` 下不执行，所以**交互只在 `npm run dev` / http 环境生效**；直接双击 `html/` 产物时样式正常但交互失效（PDF 导出是静态渲染，不受影响）。
 - 类型检查：`npm run typecheck`（tsc --noEmit）。
 
 ## 3. 页面骨架（新增页面照抄）
-整个 HTML 的开头（doctype / head / title / 依赖注入脚本 / 打开 `<body>` / 顶部导航）已抽进 `src/partials/header.html`，结尾（页脚 / main.ts / 关闭 `</body></html>`）已抽进 `src/partials/footer.html`。内容页只写「开头片段 + 正文 + 结尾片段」：
+整个 HTML 的开头（doctype / head / title / 打开 `<body>` / 顶部导航）已抽进 `src/partials/header.html`，结尾（页脚 / main.ts / 关闭 `</body></html>`）已抽进 `src/partials/footer.html`。内容页只写「开头片段 + 正文 + 结尾片段」：
 ```html
 <xq-include file="/partials/header.html" title="页面标题" docClass=""></xq-include>
 
@@ -49,13 +50,14 @@
 
 ## 6. 禁止事项
 - 禁止写 `<style>` 块做布局；禁止引入其它 CSS / JS 框架。
-- 禁止在 HTML 里手写引入 Bootstrap（已由 `header.html` 内联脚本注入），也禁止在 `main.ts` 里 `import` bootstrap。
+- 禁止在 HTML 里手写引入 Bootstrap（Bootstrap 的 CSS/JS 统一在 `src/ts/main.ts` 里 import，由 Vite 打包注入）。
 - 禁止用前端框架（React/Vue 等）重写页面。
 
 ## 7. 运行与预览（AI 必读）
 - 本仓库是 Vite 多页静态站（`root='src'`，构建产物输出到仓库根 `html/`）。**`src/` 下的 HTML 源文件不能用浏览器直接打开**：页面使用 `<xq-include>` 公共片段（以及可选的 `<?=$变量?>` 占位符），这些标记只有在经过 Vite 处理（dev / build）后才会被替换并注入 Bootstrap。直接双击/打开 `src/` 下的源文件，会看到未替换的占位标签和缺失样式（破页面）。
 - 预览方式（二选一）：
   1. **开发预览（推荐）**：`npm run dev` 启动 Vite 开发服务器，默认地址 http://localhost:5173/ （具体端口以 `vite.config.mjs` 为准）。浏览器访问 http://localhost:5173/<页面路径> 即可看到已解析的完整页面，并支持热更新。
-  2. **构建产物**：`npm run build` 把站点产出到仓库根 `html/` 目录，之后可直接打开 `html/index.html`（已是完整静态、无占位符的成品，兼容 file://）。
+  2. **构建产物**：`npm run build` 把站点产出到仓库根 `html/` 目录，之后可直接打开 `html/index.html`（已是完整静态、无占位符的成品；`file://` 下样式与图标正常，但 `type="module"` 脚本不执行，交互需在 dev / http 环境查看）。
+- **导出 PDF**：`npm run pdf` 用 Playwright 把 `html/` 下所有页面合并导出为单个 `prototype.pdf`（A4、保留背景色）。首次需安装浏览器内核：`npx playwright install chromium`。导出前必须先 `npm run build`。
 - **AI 工具预览约定**：当 AI（WorkBuddy / Trae 等会读取本文件或其 `CLAUDE.md` 副本的工具）需要向用户展示某个页面时，**应提供 dev server URL（如 http://localhost:5173/<页面路径>）或 build 后的 `html/<页面>` 产物路径，而不要直接传 `src/` 下的源文件路径**——否则内置预览会被当作未解析源文件打开，呈现破页面。若 dev server 未启动，先执行 `npm run dev` 再提供 URL。
 - 生成器（`xq-template/index.js`）会把本仓库 `AGENTS.md` 与 `CLAUDE.md` 一并拷贝到新项目，因此以上约定对所有由本模板生成的项目自动生效。

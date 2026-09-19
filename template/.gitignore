@@ -1,10 +1,5 @@
 node_modules
 html
-# vite-plugin-xq-cp-dep 在构建期把 dependencies 拷贝进 public/ 下的这三个目录，
-# 属生成物（含大量 npm 包源文件），不应提交；用户自有静态资源（如 favicon）仍可提交。
-public/bootstrap
-public/bootstrap-icons
-public/xq-util
 prototype.pdf
 *.log
 .DS_Store

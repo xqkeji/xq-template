@@ -36,10 +36,10 @@ src/pages/about/index.html     # 关于页
 src/pages/contact/index.html   # 联系页（新增页面加子目录即可）
 src/partials/header.html       # 公共头部
 src/partials/footer.html       # 公共底部
-src/js/main.js                 # 入口脚本（bootstrap / xq-util）
-src/css/style.css
+src/ts/main.ts                 # 入口脚本（import bootstrap / bootstrap-icons / xq-util / 样式）
+src/scss/style.scss            # 站点样式（Bootstrap 变量扩展、主题色）
 export-pdf.mjs                 # Playwright 合并导出 PDF
-vite.config.mjs                # 三个 xq 插件接线
+vite.config.mjs                # xq 插件接线 + file:// 兼容处理
 tsconfig.json                  # TypeScript 配置（src 下为 TS 入口）
 ```
 
