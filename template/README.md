@@ -36,10 +36,11 @@ src/pages/about/index.html     # 关于页
 src/pages/contact/index.html   # 联系页（新增页面加子目录即可）
 src/partials/header.html       # 公共头部
 src/partials/footer.html       # 公共底部
-src/ts/main.ts                 # 入口脚本（import bootstrap / bootstrap-icons / xq-util / 样式）
+src/ts/main.ts                 # 入口脚本（import bootstrap / bootstrap-icons 的 CSS、xq-util、样式）
 src/scss/style.scss            # 站点样式（Bootstrap 变量扩展、主题色）
+public/bootstrap/              # 构建期由 bootstrap-classic 插件拷入的 vendor JS（已 gitignore）
 export-pdf.mjs                 # Playwright 合并导出 PDF
-vite.config.mjs                # xq 插件接线 + file:// 兼容处理
+vite.config.mjs                # xq 插件接线 + Bootstrap JS 注入 + file:// 兼容处理
 tsconfig.json                  # TypeScript 配置（src 下为 TS 入口）
 ```
 

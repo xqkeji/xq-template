@@ -1,5 +1,7 @@
 node_modules
 html
 prototype.pdf
+# bootstrap-classic 插件在构建期把 vendor JS 拷进 public/，属生成物
+public/bootstrap
 *.log
 .DS_Store

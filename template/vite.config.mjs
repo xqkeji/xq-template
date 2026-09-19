@@ -1,17 +1,63 @@
 import { defineConfig } from 'vite'
-import { resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { resolve, relative, sep, dirname } from 'node:path'
+import { fileURLToPath, pathToFileURL } from 'node:url'
+import { mkdirSync, copyFileSync } from 'node:fs'
+import { createRequire } from 'node:module'
 import xqInclude from 'vite-plugin-xq-include'
 import xqMultiInput from 'vite-plugin-xq-multi-input'
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
+const require = createRequire(import.meta.url)
+
+// Bootstrap 的 JS 走 classic <script>，不在 main.ts 里 ESM import：
+// type="module" 脚本在 file://（origin 为 null）下会被 Chromium 按 CORS 拦掉不执行，
+// classic script 则不受限制，这样双击 html/ 产物时 data-bs-* 交互仍然可用。
+// 文件拷进 publicDir，dev 由 Vite 直接按根路径提供，build 由 Vite 原样拷到产物根。
+const VENDOR_SUBPATH = 'bootstrap/dist/js/bootstrap.bundle.min.js'
+const VENDOR_DEST = 'bootstrap/bootstrap.bundle.min.js'
+
+function bootstrapClassic() {
+  let cfg
+  const copyVendor = () => {
+    const src = require.resolve(VENDOR_SUBPATH)
+    const dest = resolve(cfg.publicDir, VENDOR_DEST)
+    mkdirSync(dirname(dest), { recursive: true })
+    copyFileSync(src, dest)
+  }
+  return {
+    name: 'bootstrap-classic',
+    configResolved(resolved) {
+      cfg = resolved
+    },
+    buildStart: copyVendor,
+    configureServer: copyVendor,
+    transformIndexHtml: {
+      order: 'post',
+      handler(html, ctx) {
+        // dev 走站点根路径；build 产物要按页面所在层级回到产物根，才能兼容 file://
+        let src
+        if (cfg.command !== 'build') {
+          src = '/' + VENDOR_DEST
+        } else {
+          const rel = ctx?.filename ? relative(cfg.root, dirname(ctx.filename)) : ''
+          const depth = rel ? rel.split(sep).length : 0
+          src = (depth ? '../'.repeat(depth) : './') + VENDOR_DEST
+        }
+        return {
+          html,
+          tags: [{ tag: 'script', attrs: { defer: '', src }, injectTo: 'bodyClose' }],
+        }
+      },
+    },
+  }
+}
 
 // file:// 兼容：Vite 默认给产物 <link>/<script> 注入 crossorigin 属性，
 // 而带 crossorigin 的请求在 file://（origin 为 'null'）下会被 Chromium 按 CORS 拦截，
 // 导致直接双击打开 html 产物 / 导出 PDF 时样式完全不生效。
 // 这里在 html 生成末尾去掉 crossorigin，让 <link rel=stylesheet> 能在 file:// 下正常加载。
-// （注：type=module 的 <script> 在 file:// 下仍受 CORS 限制不会执行，但 PDF 为静态渲染，
-//  样式生效即可，交互仅在 dev/http 环境需要。）
+// （注：type=module 的 <script> 在 file:// 下仍受 CORS 限制不会执行，
+//  所以 Bootstrap 的 JS 改由上面的 bootstrap-classic 以 classic script 注入。）
 const stripCrossorigin = {
   name: 'strip-crossorigin-for-file',
   transformIndexHtml: {
@@ -27,8 +73,8 @@ export default defineConfig({
   // 因此 root 必须是相对路径；设为 'src' 即把 src/ 作为源码根，html/ 产物生成在 src 同级）
   root: 'src',
   // 静态资源目录：放在项目根（src 的同级），存放 favicon 等不参与打包的资源。
-  // bootstrap / bootstrap-icons / xq-util 等依赖已改由 src/ts/main.ts import 经 Vite 打包，
-  // 不再需要 vite-plugin-xq-cp-dep 原样拷贝到 public。
+  // bootstrap 的 CSS 与 bootstrap-icons 由 src/ts/main.ts import 经 Vite 打包；
+  // bootstrap 的 JS 由 bootstrap-classic 插件把 vendor 文件拷到这里，再以 classic script 引用。
   publicDir: '../public',
   // 相对路径，方便构建产物直接以 file:// 打开 / 导出 PDF
   base: './',
@@ -39,6 +85,7 @@ export default defineConfig({
   plugins: [
     xqInclude(),
     xqMultiInput(),
+    bootstrapClassic(),
     stripCrossorigin,
   ],
   build: {

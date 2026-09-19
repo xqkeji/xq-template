@@ -17,6 +17,8 @@ const BINARY_EXTS = new Set([
 const SKIP_TOP_LEVEL = new Set([
   'node_modules', '.git', 'html', 'prototype.pdf', 'package-lock.json',
 ])
+// 构建期由插件生成的 vendor 目录（模板自身 public/ 下用户资源仍会拷贝）
+const SKIP_GENERATED = ['public/bootstrap']
 
 const HELP = `xq-template — 基于 Vite + xq 插件的 HTML 产品原型脚手架
 
@@ -87,6 +89,8 @@ async function copyTemplate(src, dest, ph) {
   for (const e of entries) {
     if (src === TEMPLATE_DIR && SKIP_TOP_LEVEL.has(e.name)) continue
     const s = path.join(src, e.name)
+    const rel = path.relative(TEMPLATE_DIR, s).split(path.sep).join('/')
+    if (SKIP_GENERATED.includes(rel)) continue
     const d = path.join(dest, e.name)
     if (e.isDirectory()) {
       await copyTemplate(s, d, ph)
