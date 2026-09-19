@@ -1,5 +1,8 @@
 node_modules
 .xqtmp
 testproj
+# 模板工程不锁定依赖版本；且 template/ 会整体打进 npm 包，
+# 带上 lockfile 会把它分发给每个由脚手架生成的项目。
+template/package-lock.json
 *.log
 .DS_Store
