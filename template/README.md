@@ -26,7 +26,7 @@ npm run pdf      # 合并 html/ 下所有页面，导出 prototype.pdf
 | `npm run build` | 构建全部 HTML 页面到 `html/` |
 | `npm run banner` / `build:full` | 构建并生成版权信息头（xq-banner） |
 | `npm run preview` | 预览构建产物 |
-| `npm run pdf` | 将所有页面合并导出为 `prototype.pdf` |
+| `npm run pdf` | 按 `vite.config.mjs` 入口注册顺序把所有页面合并导出为 `prototype.pdf` |
 
 ## 目录结构
 

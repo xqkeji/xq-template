@@ -60,6 +60,6 @@
 - 预览方式（二选一）：
   1. **开发预览（推荐）**：`npm run dev` 启动 Vite 开发服务器，默认地址 http://localhost:5173/ （具体端口以 `vite.config.mjs` 为准）。浏览器访问 http://localhost:5173/<页面路径> 即可看到已解析的完整页面，并支持热更新。
   2. **构建产物**：`npm run build` 把站点产出到仓库根 `html/` 目录，之后可直接打开 `html/index.html`（已是完整静态、无占位符的成品；`file://` 下样式、图标与 Bootstrap 交互均正常，仅站点自有的 module 脚本不执行）。
-- **导出 PDF**：`npm run pdf` 用 Playwright 把 `html/` 下所有页面合并导出为单个 `prototype.pdf`（A4、保留背景色）。首次需安装浏览器内核：`npx playwright install chromium`。导出前必须先 `npm run build`。
+- **导出 PDF**：`npm run pdf` 用 Playwright 把 `html/` 下所有页面合并导出为单个 `prototype.pdf`（A4、保留背景色）。**页面顺序跟随 `vite.config.mjs` 里 `build.rollupOptions.input` 的注册顺序**（不是文件名字母序）——要调整 PDF 章节顺序就改入口注册顺序；未注册的游离 HTML 会按路径排在末尾。首次需安装浏览器内核：`npx playwright install chromium`。导出前必须先 `npm run build`。
 - **AI 工具预览约定**：当 AI（WorkBuddy / Trae 等会读取本文件或其 `CLAUDE.md` 副本的工具）需要向用户展示某个页面时，**应提供 dev server URL（如 http://localhost:5173/<页面路径>）或 build 后的 `html/<页面>` 产物路径，而不要直接传 `src/` 下的源文件路径**——否则内置预览会被当作未解析源文件打开，呈现破页面。若 dev server 未启动，先执行 `npm run dev` 再提供 URL。
 - 生成器（`xq-template/index.js`）会把本仓库 `AGENTS.md` 与 `CLAUDE.md` 一并拷贝到新项目，因此以上约定对所有由本模板生成的项目自动生效。
