@@ -5,7 +5,7 @@
   "type": "module",
   "description": "基于 Vite + xq 插件的 HTML 产品原型",
   "author": "xqkeji.cn",
-  "license": "AGPL-3.0",
+  "license": "AGPL-3.0-only",
   "homepage": "https://xqkeji.cn/",
   "scripts": {
     "dev": "vite",
