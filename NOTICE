@@ -8,6 +8,8 @@ In accordance with the xqkeji framework's open-source license option
 (Section 3.1.2(c)), this notice retains the framework's copyright/license/
 disclaimer and identifies this work as "基于xqkeji框架开发".
 
-This project is licensed under the GNU Affero General Public License, Version 3 (AGPL-3.0-only).
-You may obtain a copy of the License at:
+This project is dual-licensed: either the GNU Affero General Public License, Version 3.0 only
+(AGPL-3.0-only), or a commercial license from xqkeji (https://xqkeji.cn/), which permits
+closed-source use.
+You may obtain a copy of the AGPL-3.0-only license text at:
     https://www.gnu.org/licenses/agpl-3.0.html

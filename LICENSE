@@ -1,3 +1,31 @@
+Dual License
+============
+
+Copyright (c) xqkeji. All rights reserved.
+
+This software is dual-licensed. You may use, modify and distribute it under
+either of the following, at your option:
+
+1. GNU Affero General Public License, Version 3.0 only ("AGPL-3.0-only").
+   The full text is reproduced below and at
+   https://www.gnu.org/licenses/agpl-3.0.html .
+   Choosing this option obliges you to license your derivative work under the
+   same terms and to make its source code available, including when the work
+   is accessed over a computer network.
+
+2. A commercial license from xqkeji (https://xqkeji.cn/).
+   A commercial license releases you from the AGPL-3.0-only obligations above
+   and permits closed-source use.
+
+This project is developed based on the xqkeji low-code framework (低代码开发
+框架 xqkeji, itself dual-licensed) — see the NOTICE file for the attribution
+required by the framework's license terms.
+
+--------------------------------------------------------------------------------
+The following is the verbatim text of the GNU Affero General Public License,
+Version 3, 19 November 2007 — option 1 above.
+--------------------------------------------------------------------------------
+
                     GNU AFFERO GENERAL PUBLIC LICENSE
                        Version 3, 19 November 2007
 
